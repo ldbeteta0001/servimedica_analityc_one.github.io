@@ -66,6 +66,11 @@
             </div>
         </header>
 
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 text-yellow-800 p-4 rounded-lg mb-8" role="alert">
+            <p class="font-bold">Nota sobre el Cronograma</p>
+            <p>Se trabajará intensivamente durante la semana del 22 al 28 de Septiembre para intentar finalizar el proyecto el 30 de Septiembre.</p>
+        </div>
+
         <main class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
             <div class="lg:col-span-2">
@@ -76,7 +81,7 @@
                             <div class="flex justify-between items-center">
                                 <div>
                                     <p class="font-semibold text-blue-800">Fase 1: Configuración Inicial</p>
-                                    <p class="text-sm text-gray-500">Días 1 – 3</p>
+                                    <p class="text-sm text-gray-500">23 de Sep – 25 de Sep, 2025</p>
                                 </div>
                                 <span class="text-sm font-medium text-gray-600">28 horas</span>
                             </div>
@@ -85,7 +90,7 @@
                             <div class="flex justify-between items-center">
                                 <div>
                                     <p class="font-semibold text-green-800">Fase 2: Desarrollo del Módulo Base</p>
-                                    <p class="text-sm text-gray-500">Días 4 – 6</p>
+                                    <p class="text-sm text-gray-500">26 de Sep – 28 de Sep, 2025</p>
                                 </div>
                                 <span class="text-sm font-medium text-gray-600">16 horas</span>
                             </div>
@@ -94,7 +99,7 @@
                             <div class="flex justify-between items-center">
                                 <div>
                                     <p class="font-semibold text-purple-800">Fase 3: Automatización Ventas y NC</p>
-                                    <p class="text-sm text-gray-500">Días 7 – 9</p>
+                                    <p class="text-sm text-gray-500">29 de Sep – 1 de Oct, 2025</p>
                                 </div>
                                 <span class="text-sm font-medium text-gray-600">12 horas</span>
                             </div>
@@ -103,7 +108,7 @@
                             <div class="flex justify-between items-center">
                                 <div>
                                     <p class="font-semibold text-yellow-800">Fase 4: Automatización Inventario</p>
-                                    <p class="text-sm text-gray-500">Días 10 – 12</p>
+                                    <p class="text-sm text-gray-500">2 de Oct – 4 de Oct, 2025</p>
                                 </div>
                                 <span class="text-sm font-medium text-gray-600">24 horas</span>
                             </div>
@@ -112,7 +117,7 @@
                             <div class="flex justify-between items-center">
                                 <div>
                                     <p class="font-semibold text-red-800">Fase 5: QA, Documentación y Cierre</p>
-                                    <p class="text-sm text-gray-500">Días 13 – 15</p>
+                                    <p class="text-sm text-gray-500">5 de Oct – 7 de Oct, 2025</p>
                                 </div>
                                 <span class="text-sm font-medium text-gray-600">26 horas</span>
                             </div>
@@ -144,18 +149,18 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-500">
                     <h3 class="font-bold text-lg text-gray-800">Pago 1: Anticipo</h3>
-                    <p class="text-sm text-gray-500 mb-2">Día 1</p>
+                    <p class="text-sm text-gray-500 mb-2">23 de Septiembre, 2025</p>
                     <p class="text-2xl font-bold text-blue-600 my-3">L. 15,000</p>
                     <p class="text-sm text-gray-600">Condición: Al inicio formal del proyecto.</p>
                 </div>
                 <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-yellow-500">
                     <h3 class="font-bold text-lg text-gray-800">Pago 2: Hito Funcional</h3>
-                    <p class="text-sm text-gray-500 mb-2">Final del Día 12</p>
+                    <p class="text-sm text-gray-500 mb-2">4 de Octubre, 2025</p>
                     <p class="text-sm text-gray-600">Condición: Entrega y validación de la configuración, módulo base y automatizaciones de Ventas, NC e Inventario.</p>
                 </div>
                 <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-red-500">
                     <h3 class="font-bold text-lg text-gray-800">Pago 3: Entrega Final</h3>
-                    <p class="text-sm text-gray-500 mb-2">Final del Día 15</p>
+                    <p class="text-sm text-gray-500 mb-2">7 de Octubre, 2025</p>
                     <p class="text-sm text-gray-600">Condición: Aprobación final del proyecto, entrega de documentación, video y scripts de migración.</p>
                 </div>
             </div>
@@ -168,7 +173,7 @@
             const projectData = {
                 'phase-1': {
                     title: 'Fase 1: Configuración Inicial',
-                    meta: 'Días 1 – 3  •  28 horas estimadas',
+                    meta: '23 de Sep – 25 de Sep, 2025  •  28 horas estimadas',
                     activities: [
                         'Configuración de planes analíticos (Proveedor, Localización, Empleado, Producto).',
                         'Alta masiva de cuentas analíticas para proveedores, departamentos y empleados.',
@@ -177,7 +182,7 @@
                 },
                 'phase-2': {
                     title: 'Fase 2: Desarrollo del Módulo Base',
-                    meta: 'Días 4 – 6  •  16 horas estimadas',
+                    meta: '26 de Sep – 28 de Sep, 2025  •  16 horas estimadas',
                     activities: [
                         'Creación del módulo `servimedica_analytic`.',
                         'Implementación de las estructuras base y los servicios de inferencia.',
@@ -186,7 +191,7 @@
                 },
                 'phase-3': {
                     title: 'Fase 3: Automatización Ventas y NC',
-                    meta: 'Días 7 – 9  •  12 horas estimadas',
+                    meta: '29 de Sep – 1 de Oct, 2025  •  12 horas estimadas',
                     activities: [
                         'Implementación de la asignación automática en ventas.',
                         'Automatización en notas de crédito (copia de distribución y reverso de costos).'
@@ -194,7 +199,7 @@
                 },
                 'phase-4': {
                     title: 'Fase 4: Automatización Inventario',
-                    meta: 'Días 10 – 12  •  24 horas estimadas',
+                    meta: '2 de Oct – 4 de Oct, 2025  •  24 horas estimadas',
                     activities: [
                         'Integración con el módulo `stock_account` para registrar movimientos de inventario.',
                         'Creación de reglas de distribución analítica según tipo de operación.'
@@ -202,7 +207,7 @@
                 },
                 'phase-5': {
                     title: 'Fase 5: QA, Documentación y Cierre',
-                    meta: 'Días 13 – 15  •  26 horas estimadas',
+                    meta: '5 de Oct – 7 de Oct, 2025  •  26 horas estimadas',
                     activities: [
                         'Ejecución de pruebas unitarias e integrales.',
                         'Elaboración de la documentación técnica del módulo.',
@@ -303,3 +308,5 @@
     </script>
 </body>
 </html>
+
+
