@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronograma Interactivo del Proyecto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: Se ha diseñado una aplicación tipo dashboard con una estructura principal de dos columnas. La columna izquierda presenta una línea de tiempo visual e interactiva (Gantt simplificado) que actúa como el elemento de navegación principal. La columna derecha contiene un gráfico de dona para la distribución del esfuerzo y un panel de detalles que se actualiza dinámicamente al seleccionar una fase. Al final, una sección dedicada a los hitos de pago los conecta visualmente con el progreso del proyecto. Esta estructura fue elegida para transformar un documento estático en una herramienta de exploración dinámica, permitiendo al usuario comprender rápidamente el flujo, la carga de trabajo y los hitos financieros sin sentirse abrumado por la información. -->
+    <!-- Visualization & Content Choices: 
+        - Línea de Tiempo (HTML/CSS): Report Info -> Duración y secuencia de fases. Goal -> Mostrar el flujo del proyecto. Viz/Presentation -> Bloques horizontales con longitud proporcional a la duración. Interaction -> Click para seleccionar fase y actualizar detalles. Justification -> Proporciona una vista general intuitiva y sirve como navegación central. Library -> Tailwind CSS.
+        - Distribución de Esfuerzo (Dona): Report Info -> Horas por fase. Goal -> Comparar la carga de trabajo. Viz/Presentation -> Gráfico de dona. Interaction -> Hover para ver detalles. Justification -> Visualiza rápidamente las proporciones del esfuerzo total. Library -> Chart.js.
+        - Detalles de Fase (Texto dinámico): Report Info -> Actividades por fase. Goal -> Informar sobre tareas específicas. Viz/Presentation -> Tarjeta con contenido actualizado. Interaction -> El contenido cambia según la fase seleccionada. Justification -> Reduce el desorden visual y permite el enfoque en una fase a la vez. Library -> Vanilla JS.
+        - Hitos de Pago (Tarjetas): Report Info -> Esquema de pagos. Goal -> Clarificar los entregables financieros. Viz/Presentation -> Tarjetas informativas separadas. Interaction -> Ninguna, solo informativa. Justification -> Aísla la información financiera para una fácil referencia. Library -> Tailwind CSS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfcfb;
+        }
+        .timeline-phase {
+            transition: all 0.3s ease-in-out;
+        }
+        .timeline-phase.active {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: #2563eb;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+    <div class="container mx-auto p-4 md:p-8">
+        
+        <header class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900">Cronograma del Proyecto: Módulo Analítico</h1>
+            <p class="text-lg text-gray-600 mt-2">Un plan detallado para el desarrollo, implementación y entrega del módulo.</p>
+            <div class="mt-6 flex justify-center items-center space-x-6 text-gray-700">
+                <div class="text-center">
+                    <span class="block text-2xl font-bold text-blue-600">15</span>
+                    <span class="text-sm">Días de Duración</span>
+                </div>
+                <div class="border-l h-10"></div>
+                <div class="text-center">
+                    <span class="block text-2xl font-bold text-blue-600">106</span>
+                    <span class="text-sm">Horas Estimadas</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <div class="lg:col-span-2">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h2 class="text-xl font-bold mb-6 text-gray-900">Línea de Tiempo del Proyecto</h2>
+                    <div class="space-y-5">
+                        <div id="phase-1" class="timeline-phase border-l-4 border-blue-500 bg-gray-50 p-4 rounded-lg cursor-pointer hover:shadow-md hover:bg-blue-50">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="font-semibold text-blue-800">Fase 1: Configuración Inicial</p>
+                                    <p class="text-sm text-gray-500">Días 1 – 3</p>
+                                </div>
+                                <span class="text-sm font-medium text-gray-600">28 horas</span>
+                            </div>
+                        </div>
+                        <div id="phase-2" class="timeline-phase border-l-4 border-green-500 bg-gray-50 p-4 rounded-lg cursor-pointer hover:shadow-md hover:bg-green-50">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="font-semibold text-green-800">Fase 2: Desarrollo del Módulo Base</p>
+                                    <p class="text-sm text-gray-500">Días 4 – 6</p>
+                                </div>
+                                <span class="text-sm font-medium text-gray-600">16 horas</span>
+                            </div>
+                        </div>
+                        <div id="phase-3" class="timeline-phase border-l-4 border-purple-500 bg-gray-50 p-4 rounded-lg cursor-pointer hover:shadow-md hover:bg-purple-50">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="font-semibold text-purple-800">Fase 3: Automatización Ventas y NC</p>
+                                    <p class="text-sm text-gray-500">Días 7 – 9</p>
+                                </div>
+                                <span class="text-sm font-medium text-gray-600">12 horas</span>
+                            </div>
+                        </div>
+                         <div id="phase-4" class="timeline-phase border-l-4 border-yellow-500 bg-gray-50 p-4 rounded-lg cursor-pointer hover:shadow-md hover:bg-yellow-50">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="font-semibold text-yellow-800">Fase 4: Automatización Inventario</p>
+                                    <p class="text-sm text-gray-500">Días 10 – 12</p>
+                                </div>
+                                <span class="text-sm font-medium text-gray-600">24 horas</span>
+                            </div>
+                        </div>
+                        <div id="phase-5" class="timeline-phase border-l-4 border-red-500 bg-gray-50 p-4 rounded-lg cursor-pointer hover:shadow-md hover:bg-red-50">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="font-semibold text-red-800">Fase 5: QA, Documentación y Cierre</p>
+                                    <p class="text-sm text-gray-500">Días 13 – 15</p>
+                                </div>
+                                <span class="text-sm font-medium text-gray-600">26 horas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h2 class="text-xl font-bold mb-4 text-center text-gray-900">Distribución del Esfuerzo</h2>
+                    <div class="chart-container">
+                        <canvas id="effortChart"></canvas>
+                    </div>
+                </div>
+
+                <div id="phase-details" class="bg-white p-6 rounded-xl shadow-lg">
+                    <h2 id="details-title" class="text-xl font-bold mb-1 text-gray-900"></h2>
+                    <p id="details-meta" class="text-sm text-gray-500 mb-4"></p>
+                    <h3 class="font-semibold mb-2 text-gray-700">Actividades Clave:</h3>
+                    <ul id="details-activities" class="list-disc list-inside space-y-2 text-gray-600">
+                    </ul>
+                </div>
+            </div>
+        </main>
+        
+        <section class="mt-12">
+            <h2 class="text-2xl font-bold text-center mb-8 text-gray-900">🏁 Hitos de Pago y Entregables</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-500">
+                    <h3 class="font-bold text-lg text-gray-800">Pago 1: Anticipo</h3>
+                    <p class="text-sm text-gray-500 mb-2">Día 1</p>
+                    <p class="text-2xl font-bold text-blue-600 my-3">L. 15,000</p>
+                    <p class="text-sm text-gray-600">Condición: Al inicio formal del proyecto.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-yellow-500">
+                    <h3 class="font-bold text-lg text-gray-800">Pago 2: Hito Funcional</h3>
+                    <p class="text-sm text-gray-500 mb-2">Final del Día 12</p>
+                    <p class="text-sm text-gray-600">Condición: Entrega y validación de la configuración, módulo base y automatizaciones de Ventas, NC e Inventario.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-red-500">
+                    <h3 class="font-bold text-lg text-gray-800">Pago 3: Entrega Final</h3>
+                    <p class="text-sm text-gray-500 mb-2">Final del Día 15</p>
+                    <p class="text-sm text-gray-600">Condición: Aprobación final del proyecto, entrega de documentación, video y scripts de migración.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const projectData = {
+                'phase-1': {
+                    title: 'Fase 1: Configuración Inicial',
+                    meta: 'Días 1 – 3  •  28 horas estimadas',
+                    activities: [
+                        'Configuración de planes analíticos (Proveedor, Localización, Empleado, Producto).',
+                        'Alta masiva de cuentas analíticas para proveedores, departamentos y empleados.',
+                        'Desarrollo del script inicial para la sincronización de productos.'
+                    ]
+                },
+                'phase-2': {
+                    title: 'Fase 2: Desarrollo del Módulo Base',
+                    meta: 'Días 4 – 6  •  16 horas estimadas',
+                    activities: [
+                        'Creación del módulo `servimedica_analytic`.',
+                        'Implementación de las estructuras base y los servicios de inferencia.',
+                        'Desarrollo de validaciones para asegurar la obligatoriedad de la distribución al 100%.'
+                    ]
+                },
+                'phase-3': {
+                    title: 'Fase 3: Automatización Ventas y NC',
+                    meta: 'Días 7 – 9  •  12 horas estimadas',
+                    activities: [
+                        'Implementación de la asignación automática en ventas.',
+                        'Automatización en notas de crédito (copia de distribución y reverso de costos).'
+                    ]
+                },
+                'phase-4': {
+                    title: 'Fase 4: Automatización Inventario',
+                    meta: 'Días 10 – 12  •  24 horas estimadas',
+                    activities: [
+                        'Integración con el módulo `stock_account` para registrar movimientos de inventario.',
+                        'Creación de reglas de distribución analítica según tipo de operación.'
+                    ]
+                },
+                'phase-5': {
+                    title: 'Fase 5: QA, Documentación y Cierre',
+                    meta: 'Días 13 – 15  •  26 horas estimadas',
+                    activities: [
+                        'Ejecución de pruebas unitarias e integrales.',
+                        'Elaboración de la documentación técnica del módulo.',
+                        'Creación de manual de usuario y video explicativo.',
+                        'Desarrollo de scripts utilitarios para la migración de datos.'
+                    ]
+                }
+            };
+
+            const detailsTitle = document.getElementById('details-title');
+            const detailsMeta = document.getElementById('details-meta');
+            const detailsActivities = document.getElementById('details-activities');
+            const phaseElements = document.querySelectorAll('.timeline-phase');
+            
+            function updateDetails(phaseId) {
+                const data = projectData[phaseId];
+                if (!data) return;
+
+                detailsTitle.textContent = data.title;
+                detailsMeta.textContent = data.meta;
+                
+                detailsActivities.innerHTML = '';
+                data.activities.forEach(activityText => {
+                    const li = document.createElement('li');
+                    li.textContent = activityText;
+                    detailsActivities.appendChild(li);
+                });
+
+                phaseElements.forEach(el => {
+                    el.classList.remove('active');
+                    if(el.id === phaseId) {
+                        el.classList.add('active');
+                    }
+                });
+            }
+
+            phaseElements.forEach(phase => {
+                phase.addEventListener('click', () => {
+                    updateDetails(phase.id);
+                });
+            });
+
+            updateDetails('phase-1');
+
+            const ctx = document.getElementById('effortChart').getContext('2d');
+            const effortChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Configuración', 'Desarrollo', 'Ventas/NC', 'Inventario', 'QA y Cierre'],
+                    datasets: [{
+                        label: 'Esfuerzo (horas)',
+                        data: [28, 16, 12, 24, 26],
+                        backgroundColor: [
+                            '#3b82f6',
+                            '#22c55e',
+                            '#a855f7',
+                            '#eab308',
+                            '#ef4444'
+                        ],
+                        borderColor: '#fdfcfb',
+                        borderWidth: 4,
+                        hoverOffset: 12
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                boxWidth: 12,
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed + ' horas';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
